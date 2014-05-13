@@ -102,8 +102,8 @@ if (files.length) {
     monocle.watchFiles({
       files: files,
       listener: function(file) {
-        var filePath = path.relative(file.absolutePath);
-        renderFile(filePath);
+        var relative = path.relative(process.cwd(), file.absolutePath);
+        renderFile(relative);
       }
     });
   }
@@ -133,7 +133,7 @@ function stdin() {
     }
     process.stdout.write(output);
   }).resume();
-  
+
   process.on('SIGINT', function() {
     process.stdout.write('\n');
     process.stdin.emit('end');
